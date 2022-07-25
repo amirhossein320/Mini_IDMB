@@ -4,9 +4,8 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy.REPLACE
 import androidx.room.Query
-import ir.interview.idmb.data.database.entities.FullMovieEntity
+import ir.interview.idmb.data.database.entities.MovieDetailEntity
 import ir.interview.idmb.data.database.entities.MovieEntity
-import ir.interview.idmb.data.network.models.FullMovieResponse
 
 @Dao
 interface MovieDao {
@@ -14,12 +13,12 @@ interface MovieDao {
     @Query("SELECT * FROM movies")
     suspend fun getAll(): List<MovieEntity>
 
-    @Query("SELECT * FROM full_movies WHERE imdbID=:movieId")
-    suspend fun get(movieId: String): FullMovieEntity?
+    @Query("SELECT * FROM movie_details WHERE imdbID=:movieId")
+    suspend fun get(movieId: String): MovieDetailEntity?
 
     @Insert(onConflict = REPLACE)
     suspend fun insertMovies(movies: List<MovieEntity>)
 
     @Insert(onConflict = REPLACE)
-    suspend fun insertMovie(movie: FullMovieEntity)
+    suspend fun insertMovieDetail(movie: MovieDetailEntity)
 }

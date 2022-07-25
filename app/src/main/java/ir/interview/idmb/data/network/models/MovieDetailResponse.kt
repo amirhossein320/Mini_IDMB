@@ -2,7 +2,7 @@ package ir.interview.idmb.data.network.models
 
 import com.google.gson.annotations.SerializedName
 
-data class FullMovieResponse(
+data class MovieDetailResponse(
     @SerializedName("Title") var title: String,
     @SerializedName("Year") var year: String,
     @SerializedName("Rated") var rated: String,

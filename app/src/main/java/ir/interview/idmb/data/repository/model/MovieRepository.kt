@@ -4,7 +4,7 @@ import ir.interview.idmb.data.database.dao.MovieDao
 import ir.interview.idmb.data.network.ApiService
 import ir.interview.idmb.data.network.NoConnectivityException
 import ir.interview.idmb.mapper.*
-import ir.interview.idmb.ui.movie.FullMovie
+import ir.interview.idmb.ui.movie.MovieDetail
 import ir.interview.idmb.ui.movies.Movie
 import kotlinx.coroutines.flow.flow
 
@@ -33,14 +33,14 @@ class MovieRepository(private val movieDao: MovieDao,private val api: ApiService
         }
     }
 
-    suspend fun getMovie(movieId: String) = flow<DataResult<FullMovie>> {
+    suspend fun getMovie(movieId: String) = flow<DataResult<MovieDetail>> {
         try {
             emit(DataResult.Loading)
             val response = api.getMovie(movieId)
             if (response.isSuccessful) {
                 response.body()?.let {
-                    emit(DataResult.Data(fullMovieResponseToFullMovie(it)))
-                    movieDao.insertMovie(fullMovieResponseToFullMovieEntity(it))
+                    emit(DataResult.Data(movieDetailResponseToMovieDetail(it)))
+                    movieDao.insertMovieDetail(movieDetailResponseToMovieDetailEntity(it))
                 } ?: emit(DataResult.Error("data is null"))
             } else {
                 emit(DataResult.Error(response.message()))
@@ -49,7 +49,7 @@ class MovieRepository(private val movieDao: MovieDao,private val api: ApiService
             emit(DataResult.NoInternet)
             val localData = movieDao.get(movieId)
             localData?.let {
-                emit(DataResult.Data(fullMovieEntityToFullMovie(it)))
+                emit(DataResult.Data(movieDetailEntityToMovieDetail(it)))
             } ?: run {
                 emit(DataResult.NoData)
             }

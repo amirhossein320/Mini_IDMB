@@ -1,8 +1,11 @@
-package ir.interview.idmb.ui.movie
+package ir.interview.idmb.data.database.entities
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 
-data class FullMovie(
-    val imdbID: String,
+@Entity(tableName = "movie_details")
+data class MovieDetailEntity(
+    @PrimaryKey val imdbID: String,
     val title: String,
     val year: String,
     val rated: String,
@@ -17,7 +20,7 @@ data class FullMovie(
     val country: String,
     val awards: String,
     val poster: String,
-    val metaScore: String,
+    val metascore: String,
     val imdbRating: String,
     val imdbVotes: String,
     val type: String,

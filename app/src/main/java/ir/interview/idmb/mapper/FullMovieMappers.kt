@@ -1,14 +1,11 @@
 package ir.interview.idmb.mapper
 
-import ir.interview.idmb.data.database.entities.FullMovieEntity
-import ir.interview.idmb.data.database.entities.MovieEntity
-import ir.interview.idmb.data.network.models.FullMovieResponse
-import ir.interview.idmb.data.network.models.MovieResponse
-import ir.interview.idmb.ui.movie.FullMovie
-import ir.interview.idmb.ui.movies.Movie
+import ir.interview.idmb.data.database.entities.MovieDetailEntity
+import ir.interview.idmb.data.network.models.MovieDetailResponse
+import ir.interview.idmb.ui.movie.MovieDetail
 
-suspend inline fun fullMovieResponseToFullMovieEntity(input: FullMovieResponse): FullMovieEntity =
-    FullMovieEntity(
+suspend inline fun movieDetailResponseToMovieDetailEntity(input: MovieDetailResponse): MovieDetailEntity =
+    MovieDetailEntity(
         title = input.title,
         year = input.year,
         rated = input.rated,
@@ -34,8 +31,8 @@ suspend inline fun fullMovieResponseToFullMovieEntity(input: FullMovieResponse):
         website = input.website,
     )
 
-suspend inline fun fullMovieResponseToFullMovie(input: FullMovieResponse): FullMovie =
-    FullMovie(
+suspend inline fun movieDetailResponseToMovieDetail(input: MovieDetailResponse): MovieDetail =
+    MovieDetail(
         title = input.title,
         year = input.year,
         rated = input.rated,
@@ -62,8 +59,8 @@ suspend inline fun fullMovieResponseToFullMovie(input: FullMovieResponse): FullM
     )
 
 
-suspend inline fun fullMovieEntityToFullMovie(input: FullMovieEntity): FullMovie =
-    FullMovie(
+suspend inline fun movieDetailEntityToMovieDetail(input: MovieDetailEntity): MovieDetail =
+    MovieDetail(
         title = input.title,
         year = input.year,
         rated = input.rated,

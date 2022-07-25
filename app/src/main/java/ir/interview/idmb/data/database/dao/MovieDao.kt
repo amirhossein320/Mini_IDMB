@@ -15,11 +15,11 @@ interface MovieDao {
     suspend fun getAll(): List<MovieEntity>
 
     @Query("SELECT * FROM full_movies WHERE imdbID=:movieId")
-    suspend fun get(movieId: String): FullMovieEntity
+    suspend fun get(movieId: String): FullMovieEntity?
 
     @Insert(onConflict = REPLACE)
     suspend fun insertMovies(movies: List<MovieEntity>)
 
     @Insert(onConflict = REPLACE)
-    suspend fun insertMovie(movie: FullMovieResponse)
+    suspend fun insertMovie(movie: FullMovieEntity)
 }

@@ -5,19 +5,27 @@ import android.os.Bundle
 import androidx.fragment.app.Fragment
 import ir.interview.idmb.App
 import ir.interview.idmb.R
+import ir.interview.idmb.databinding.ActivityMainBinding
+import ir.interview.idmb.ui.movies.MovieFragment
 
 class MainActivity : AppCompatActivity() {
+
+    private lateinit var binding: ActivityMainBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        navigateToWithoutStack(MovieFragment())
     }
 
     override fun onBackPressed() {
         if (supportFragmentManager.backStackEntryCount > 1) popBack()
         else {
-            if (supportFragmentManager.fragments.last().childFragmentManager.backStackEntryCount >= 1){
+            if (supportFragmentManager.fragments.last().childFragmentManager.backStackEntryCount >= 1) {
                 supportFragmentManager.fragments.last().childFragmentManager.popBackStack()
-            }else{
+            } else {
                 super.onBackPressed()
             }
         }
@@ -36,11 +44,13 @@ class MainActivity : AppCompatActivity() {
             .commit()
     }
 
-    fun popBack() { supportFragmentManager.popBackStack() }
+    fun popBack() {
+        supportFragmentManager.popBackStack()
+    }
 
     fun getInjection() = (application as App).injection
 
-    fun showNoInternet(){
+    fun showNoInternet() {
 
     }
 }

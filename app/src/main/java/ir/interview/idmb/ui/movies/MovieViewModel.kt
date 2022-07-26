@@ -19,7 +19,7 @@ class MovieViewModel(private val movieRepository: MovieRepository) :
             _event.consumeAsFlow().collect { event ->
                 when (event) {
                     is MovieEvent.GetMovies -> {
-                        getMovies(event.movieId)
+                        getMovies(event.searchText)
                     }
                     is MovieEvent.ShowMovie -> {
                         _effect.send(MovieEffect.ShowMovie(event.movieId))

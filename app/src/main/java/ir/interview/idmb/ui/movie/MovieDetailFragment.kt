@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import ir.interview.idmb.R
 import ir.interview.idmb.databinding.FragmentMovieDetailBinding
 import ir.interview.idmb.ui.base.BaseFragment
+import ir.interview.idmb.utils.MOVIE_ID_KEY
 import ir.interview.idmb.utils.gone
 import ir.interview.idmb.utils.loadImage
 import ir.interview.idmb.utils.visible
@@ -30,6 +31,7 @@ class MovieDetailFragment :
         viewModel = ViewModelProvider(this, viewModelFactory {
             initializer { MovieDetailViewModel(getInjection().getMovieRepository()) }
         })[MovieDetailViewModel::class.java]
+        movieId = arguments?.getString(MOVIE_ID_KEY)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -93,6 +95,7 @@ class MovieDetailFragment :
                 progressBar.gone()
             }
             movieDetailRecycler.visible()
+            toolbar.title = movieDetail.title
             loadImage(imgPoster, movieDetail.poster)
             movieDetailAdapter.submitList(movieDetailItems)
         }
@@ -103,7 +106,7 @@ class MovieDetailFragment :
             with(viewState) {
                 imgMessage.visible()
                 txtMessage.apply {
-                    gone()
+                    visible()
                     text = errorMessage
                 }
                 progressBar.gone()

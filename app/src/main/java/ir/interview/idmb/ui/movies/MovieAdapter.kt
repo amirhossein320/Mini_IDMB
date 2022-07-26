@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import ir.interview.idmb.databinding.ItemMovieBinding
+import ir.interview.idmb.utils.loadImage
 
 class MovieAdapter :
     ListAdapter<Movie, MovieAdapter.AddressesViewHolder>(
@@ -36,10 +37,10 @@ class MovieAdapter :
 
         fun bind(item: Movie, onItemClick: ((movie: Movie) -> Unit)?) {
             with(binding) {
-                binding.txtTitle.text = item.title
-                binding.txtYear.text = item.year
-                binding.txtType.text = item.type
-
+                txtTitle.text = item.title
+                txtYear.text = item.year
+                txtType.text = item.type
+                loadImage(imgPoster, item.poster)
                 root.setOnClickListener{
                     onItemClick?.invoke(item)
                 }

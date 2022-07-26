@@ -9,13 +9,15 @@
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="256dp"
-        app:expanded="true"
         android:fitsSystemWindows="true">
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:fitsSystemWindows="true">
+            android:fitsSystemWindows="true"
+            app:expandedTitleTextColor="#DEFFFFFF"
+            app:collapsedTitleTextColor="#DEFFFFFF"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
             <ImageView
                 android:id="@+id/imgPoster"
@@ -28,6 +30,7 @@
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?actionBarSize"
+                app:titleTextColor="#DEFFFFFF"
                 android:background="@android:color/transparent" />
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>
@@ -49,7 +52,9 @@
                 android:id="@+id/movieDetailRecycler"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"
                 tools:listitem="@layout/item_movie_detail" />
+
             <include
                 android:id="@+id/viewState"
                 layout="@layout/view_state"

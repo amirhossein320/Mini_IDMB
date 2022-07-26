@@ -24,7 +24,6 @@ class MovieFragment :
 
     private lateinit var viewModel: MovieViewModel
     private lateinit var movieAdapter: MovieAdapter
-    private var movieId: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,10 +35,7 @@ class MovieFragment :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        movieId?.let {
-            viewModel.setEvent(MovieEvent.GetMovies())
-        } ?: run { showError(getString(R.string.err_movie_not_found)) }
-
+        viewModel.setEvent(MovieEvent.GetMovies())
         setupDetailRecycler()
         handleState()
         handleEffect()
@@ -107,7 +103,7 @@ class MovieFragment :
             with(viewState) {
                 imgMessage.visible()
                 txtMessage.apply {
-                    gone()
+                    visible()
                     text = errorMessage
                 }
                 progressBar.gone()

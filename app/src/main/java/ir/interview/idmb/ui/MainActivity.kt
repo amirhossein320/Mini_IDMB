@@ -39,4 +39,8 @@ class MainActivity : AppCompatActivity() {
     fun popBack() { supportFragmentManager.popBackStack() }
 
     fun getInjection() = (application as App).injection
+
+    fun showNoInternet(){
+
+    }
 }

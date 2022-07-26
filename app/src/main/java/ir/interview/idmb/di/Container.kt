@@ -7,6 +7,7 @@ import ir.interview.idmb.BuildConfig
 import ir.interview.idmb.data.database.AppDatabase
 import ir.interview.idmb.data.network.ApiService
 import ir.interview.idmb.data.network.OkHttpInterceptors
+import ir.interview.idmb.data.repository.model.MovieRepository
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -41,4 +42,6 @@ class Container(context: Context) {
         context, AppDatabase::class.java, "database.db"
     ).build()
 
+
+    fun getMovieRepository() = MovieRepository(database.movieDao(), apiService)
 }

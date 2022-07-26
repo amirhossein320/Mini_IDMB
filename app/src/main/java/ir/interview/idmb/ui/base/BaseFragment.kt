@@ -50,4 +50,6 @@ open class BaseFragment<T : ViewBinding>(
 
     open fun getInjection() = (requireActivity() as MainActivity).getInjection()
 
+    open fun showNoInternet() = (requireActivity() as MainActivity).showNoInternet()
+
 }

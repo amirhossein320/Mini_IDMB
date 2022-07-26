@@ -5,6 +5,8 @@ import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.net.NetworkInfo
 import android.os.Build
+import android.view.View
+import android.widget.Toast
 
 fun Context.hasNetwork(): Boolean {
     val connMgr = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
@@ -23,4 +25,8 @@ fun Context.hasNetwork(): Boolean {
         val networkInfo: NetworkInfo? = connMgr.activeNetworkInfo
         networkInfo?.run { isConnected == true } ?: false
     }
+}
+
+inline fun Context.showToast(message: String) {
+    Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
 }

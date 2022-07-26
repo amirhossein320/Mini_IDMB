@@ -3,4 +3,6 @@
     <string name="err_no_internet">no internet connection</string>
     <string name="err_time_out">request time out</string>
     <string name="err_request_failed">request failed</string>
+    <string name="err_movie_not_found">Movie not found</string>
+    <string name="no_data">not found data</string>
 </resources>

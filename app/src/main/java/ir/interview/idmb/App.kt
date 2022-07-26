@@ -5,5 +5,11 @@ import ir.interview.idmb.di.Container
 
 class App : Application() {
 
-    val injection = Container(this)
+    lateinit var injection: Container
+
+    override fun onCreate() {
+        super.onCreate()
+
+         injection = Container(this)
+    }
 }

@@ -8,6 +8,7 @@
 - Manual Navigation Handling
 - ViewModel
 - Flow
+- Channel
 - Coroutine
 - Retrofit
 - Room

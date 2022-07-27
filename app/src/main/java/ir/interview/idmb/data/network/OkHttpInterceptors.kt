@@ -1,6 +1,7 @@
 package ir.interview.idmb.data.network
 
 import android.content.Context
+import android.util.Log
 import ir.interview.idmb.BuildConfig
 import ir.interview.idmb.R
 import ir.interview.idmb.utils.hasNetwork
@@ -33,14 +34,12 @@ class OkHttpInterceptors {
         val originalRequest = it.request()
         try {
             if (context.hasNetwork()) {
-                it.proceed(originalRequest)
+               return@Interceptor it.proceed(originalRequest)
             } else {
                 throw NoConnectivityException(context.getString(R.string.err_no_internet))
             }
         } catch (e: SocketTimeoutException) {
             throw SocketTimeoutException(context.getString(R.string.err_time_out))
-        } catch (e: Exception) {
-            throw IOException(context.getString(R.string.err_request_failed))
         }
 
     }

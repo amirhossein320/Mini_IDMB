@@ -2,6 +2,8 @@ package ir.interview.idmb.ui.movies
 
 import android.os.Bundle
 import android.view.View
+import android.view.inputmethod.EditorInfo
+import android.widget.TextView.OnEditorActionListener
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
@@ -15,15 +17,18 @@ import ir.interview.idmb.ui.base.BaseFragment
 import ir.interview.idmb.ui.movie.MovieDetailFragment
 import ir.interview.idmb.utils.MOVIE_ID_KEY
 import ir.interview.idmb.utils.gone
+import ir.interview.idmb.utils.hideKeyboard
 import ir.interview.idmb.utils.visible
 import kotlinx.coroutines.flow.consumeAsFlow
 import kotlinx.coroutines.launch
+
 
 class MovieFragment :
     BaseFragment<FragmentMovieBinding>(FragmentMovieBinding::inflate) {
 
     private lateinit var viewModel: MovieViewModel
     private lateinit var movieAdapter: MovieAdapter
+    private var searchText : String = "batman"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,8 +40,9 @@ class MovieFragment :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.setEvent(MovieEvent.GetMovies())
+        viewModel.setEvent(MovieEvent.GetMovies(searchText))
         setupDetailRecycler()
+        handleEdtSearch()
         handleState()
         handleEffect()
 
@@ -84,6 +90,18 @@ class MovieFragment :
             layoutManager = LinearLayoutManager(context)
             adapter = movieAdapter
         }
+    }
+
+    private inline fun handleEdtSearch() {
+        binding.edtSearch.setOnEditorActionListener(OnEditorActionListener { v, actionId, event ->
+            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                searchText = binding.edtSearch.text.toString()
+                viewModel.setEvent(MovieEvent.GetMovies(searchText))
+                binding.edtSearch.hideKeyboard()
+                return@OnEditorActionListener true
+            }
+            false
+        })
     }
 
     private fun showData(movies: List<Movie>) {

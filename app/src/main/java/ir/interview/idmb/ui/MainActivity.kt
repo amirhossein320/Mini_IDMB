@@ -2,15 +2,30 @@ package ir.interview.idmb.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.CountDownTimer
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import ir.interview.idmb.App
 import ir.interview.idmb.R
 import ir.interview.idmb.databinding.ActivityMainBinding
 import ir.interview.idmb.ui.movies.MovieFragment
+import ir.interview.idmb.utils.gone
+import ir.interview.idmb.utils.visible
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
+    private val toastTimer : CountDownTimer by lazy {
+        object : CountDownTimer(3000, 1000) {
+            override fun onTick(p0: Long) {
+
+            }
+
+            override fun onFinish() {
+                binding.txtNoInternet.gone()
+            }
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,6 +66,8 @@ class MainActivity : AppCompatActivity() {
     fun getInjection() = (application as App).injection
 
     fun showNoInternet() {
-
+        toastTimer.cancel()
+        toastTimer.start()
+        binding.txtNoInternet.visible()
     }
 }

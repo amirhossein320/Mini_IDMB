@@ -21,4 +21,7 @@ interface MovieDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertMovieDetail(movie: MovieDetailEntity)
+
+    @Query("SELECT * FROM movies WHERE title Like '%' || :searchText || '%'")
+    suspend fun getMovies(searchText: String): List<MovieEntity>
 }

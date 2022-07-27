@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.flow
 class MovieRepository(private val movieDao: MovieDao,private val api: ApiService) {
 
 
-    suspend fun getMovies(searchText: String = "s") = flow<DataResult<List<Movie>>> {
+    suspend fun getMovies(searchText: String = "batman") = flow<DataResult<List<Movie>>> {
         try {
             emit(DataResult.Loading)
             val response = api.getMovies(searchText)
@@ -25,7 +25,7 @@ class MovieRepository(private val movieDao: MovieDao,private val api: ApiService
             }
         } catch (e: NoConnectivityException) {
             emit(DataResult.NoInternet)
-            val localData = movieDao.getAll()
+            val localData = movieDao.getMovies(searchText)
             if (localData.isEmpty()) emit(DataResult.NoData)
             else emit(DataResult.Data(listMovieEntityToListMovie(localData)))
         } catch (e: Exception) {
